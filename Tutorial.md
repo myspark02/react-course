@@ -10,3 +10,8 @@
    * Learn to "think in React"
    * [Open Figma file](https://www.figma.com/file/xA1rJVQOorqMW6xjGdBLcI/ReactFacts)
 
+2. What we'll learn
+   * Why we care about React
+   * JSX
+   * Custom components
+   * Styling
