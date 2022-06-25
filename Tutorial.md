@@ -1,6 +1,6 @@
 
- *  "The easy wayist  he hard way"
-    - Learn bydoing
+ *  "The easy way is the hard way"
+    - Learn by doing
     - Avoid "Tutorial Hell"
     
 * What you should aleady know
