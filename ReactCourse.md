@@ -119,3 +119,71 @@
   * For each item in DUMMY_DATA map it to a MeetupItem component
 
 * src/components/meetups/MeetupItem.js
+  * display title, address, description, and button to add to favorites
+  * receive the contents to display through props
+  * define css style for this component in MeetupItem.module.css
+  * import the css to classes and use the classes as className values
+
+* src/components/meetups/MeetupList.js
+  * define css style for this component in MeetupIList.module.css
+  * import the css to classes and use the classes as className values
+  * import MeetupItem
+  * receive  meetups array through props and map each meetup to a MeetupItem componet
+
+* src/pages/AllMeetup.js
+  * import MeetupList 
+  * return jsx code including MeetupList component that has a meetups attribute and its value is DUMMY_DATA
+
+* Reusable card styling component
+* src/components/ui/Card.js
+  * attach Card.module.css file
+  * wrap props.children to style them as card
+
+* src/components/MeetupItem.js
+  * wrap the meetup content with opening Card tag end closing Card tag.
+
+* src/components/layout/Layout.js
+  * attach Layout.moudle.css file
+  * cut MainNavigation from App.js and paste it to this component's JSX code.
+  * put opening and closing tags of main below the MainNavigation
+  * put props.children between opening tag and closing tag of main
+
+* src/App.js
+  * wrap the Routes component with Layout
+
+* src/pages/NewMeeupPage.js
+* src/components/meetups/NewMeetupForm.js
+  * attach NewmeetupForm.module.css
+  * put NewMeetupForm component to NewMeetupPage
+  * wrap the content with Card
+    * form which has 
+      * input for meetup title, input for image url, input for address, and textarea for description
+      * button for submit the form
+  * define submit event handler function
+    * event.preventDefault()
+  * use useRef hook
+    * establish a connection to each input through the object returned by calling useRef() hook
+  * in submit event handler function 
+    * You get the input value through the object returned by useRef()
+    * construct meetupData as json from the input values and send the json to backend server,
+  * SPA typically needs a backend API server
+  * We don't directly connect to a DB server from react because of security issues 
+  * Instead, we connect to a backend server and the server connects to a DB server
+  * But in this course just for demonstration we directly connect to a Firebase from react application.
+  * Firebase is a service offered by Google, you only need a google accound to use it.
+    * console.firebase.google.com
+      * create a project
+      * build > realtime database > create a database > start in test mode
+  * You receive a function which sends json object to firebase realtim databse
+    * Call the function with the json object
+
+* src/pages/NewMeetupPage.js
+  * define a addMeetupHander function 
+    * and pass the fucntion reference to NewMeetupForm component
+    * use builtin javascript function fetch to send request to filrebase
+      * append  /database_name.json to the realtime firebase url 
+      * use json object to provide http method and body information as second argument to a fetch function
+  * When you execute NewMeetup you can see the data stored in firebase realtime database
+
+* Mock backend API server
+* 
