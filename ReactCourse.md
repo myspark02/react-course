@@ -174,16 +174,77 @@
     * console.firebase.google.com
       * create a project
       * build > realtime database > create a database > start in test mode
+      ```
+      {
+        "rules": {
+          ".read": "now < 1655910000000",  // 2022-6-23
+          ".write": "now < 1655910000000",  // 2022-6-23
+        }
+      }
+      ```
+      * change the above to the below
+      ```
+      {
+        "rules": {
+          ".read": true
+          ".write": true
+        }
+      }
+      ```
+
   * You receive a function which sends json object to firebase realtim databse
     * Call the function with the json object
 
 * src/pages/NewMeetupPage.js
   * define a addMeetupHander function 
     * and pass the fucntion reference to NewMeetupForm component
-    * use builtin javascript function fetch to send request to filrebase
+    * use builtin javascript function 'fetch' to send request to filrebase
       * append  /database_name.json to the realtime firebase url 
       * use json object to provide http method and body information as second argument to a fetch function
-  * When you execute NewMeetup you can see the data stored in firebase realtime database
+  * When you execute NewMeetup you can see the data is being stored in firebase database in real time
+  * After adding new meetup we go back to '/' page by calling useNavigate hook
 
-* Mock backend API server
-* 
+* src/pages/AllMeetups.js
+  * Whenever after this component being rendered, It fetches all meetups data from firebase by calling useEffect() hook
+    * without useEffect() hook, fetch() function call and then setting state variable causes infinite loop
+
+* src/pages/Favorites.js
+  * Depending on the current favorite state, We can add each MeetupItem component to favorite list or remove from the list 
+  * Favorite meetups displayed on 'My Favoirtes' page, and the number of favorite meetups is displayed as badge beside 'My Favorites' link
+  * We'll have a state that affects more than one component we'll need a mechanism of mananging that state globally and distributing that state to different components
+    * We can manage global state by passing the state to lower hierarchy from the root component but it has a couple of downsides
+      * one problem would be that if we have a bigger application with different states that affect different components we have to manange more and more state in root component and the root component becomes bigger and bigger that's may not be ideal.
+      * another problem is that if we pass state down through props that we can end up with very long prop chains
+  * One popular state management package is redux
+  * Reat also has a built-in state management solution which is useContext hook
+
+* src/store/favorites-context.js
+  * import createContext
+  * create context 
+    * context is a javascript object
+    * and the context object is a component, and the convention for component name is that the name starts with capital character
+  * define a context provider component
+    * declare userFavorites state using useState hook
+    * define addFavoriteHandler, removeFavoriteHander, itemIsFavoriteHandler function
+    * declare context using userFavorite state and the above functions and then pass it through the context value
+  * wrap the components that are listening to the context change with the context's provider
+    
+* src/index.js
+  * wrap BrowserRouter component with context provider component
+
+* src/components/meetups/MeetupItem.js
+  * import useContext
+  * define toggleFavoriteStatusHandler using context object and associate it to click event of button tag
+
+* src/pages/Favorites.js
+  * import useContext
+  * import MeetupList
+  * return MeetupList component with meetups attribute and its value is context object's favorites
+
+* src/components/layout/MainNavigation.js
+  * add a badge representing total number of favorites
+  * import useContext
+  * get the number of favorites from the context object
+
+
+* To make favorite meetups permanant, use web browser's local storage to store favorite meetups in context provider
